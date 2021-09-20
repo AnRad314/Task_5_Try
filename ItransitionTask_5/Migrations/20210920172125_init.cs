@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ItransitionTask_5.Migrations
 {
-    public partial class Game2 : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -56,9 +56,9 @@ namespace ItransitionTask_5.Migrations
                     IdPlayer1 = table.Column<string>(nullable: true),
                     IdPlayer2 = table.Column<string>(nullable: true),
                     Moves = table.Column<string>(nullable: true),
-                    CountMoves = table.Column<int>(nullable: false),
-                    StepUser1 = table.Column<int>(nullable: false),
-                    StepUser2 = table.Column<int>(nullable: false)
+                    CountMoves = table.Column<int>(nullable: true),
+                    StepUser1 = table.Column<int>(nullable: true),
+                    StepUser2 = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {

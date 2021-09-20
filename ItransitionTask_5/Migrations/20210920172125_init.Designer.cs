@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ItransitionTask_5.Migrations
 {
     [DbContext(typeof(GameDbContext))]
-    [Migration("20210919221055_Game2")]
-    partial class Game2
+    [Migration("20210920172125_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,7 +28,7 @@ namespace ItransitionTask_5.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CountMoves")
+                    b.Property<int?>("CountMoves")
                         .HasColumnType("int");
 
                     b.Property<string>("IdPlayer1")
@@ -40,10 +40,10 @@ namespace ItransitionTask_5.Migrations
                     b.Property<string>("Moves")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("StepUser1")
+                    b.Property<int?>("StepUser1")
                         .HasColumnType("int");
 
-                    b.Property<int>("StepUser2")
+                    b.Property<int?>("StepUser2")
                         .HasColumnType("int");
 
                     b.HasKey("Id");

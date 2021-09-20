@@ -26,7 +26,7 @@ namespace ItransitionTask_5.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CountMoves")
+                    b.Property<int?>("CountMoves")
                         .HasColumnType("int");
 
                     b.Property<string>("IdPlayer1")
@@ -38,10 +38,10 @@ namespace ItransitionTask_5.Migrations
                     b.Property<string>("Moves")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("StepUser1")
+                    b.Property<int?>("StepUser1")
                         .HasColumnType("int");
 
-                    b.Property<int>("StepUser2")
+                    b.Property<int?>("StepUser2")
                         .HasColumnType("int");
 
                     b.HasKey("Id");

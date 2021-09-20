@@ -39,9 +39,8 @@ namespace ItransitionTask_5.Controllers
 
             var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, false);
 
-            if (result.Succeeded)
-            {
-                var currentUser = await _userManager.FindByLoginAsync(info.LoginProvider, info.ProviderKey);               
+            if (result.Succeeded)            {
+                           
                 return RedirectToAction("Index", "Home");
             }
             else

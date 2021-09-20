@@ -1,61 +1,56 @@
 ﻿@{
-    ViewData["Title"] = "Privacy Policy";
+	ViewData["Title"] = "Your move";
 }
+@model string[]
+
 <script src="~/lib/jquery/dist/jquery.js"></script>
-<h1>@ViewData["Title"]</h1>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
 
-<p>Use this page to detail your site's privacy policy.</p>
-<div class="container">
-	<p>Select the number of moves </p>
-	<div class="form-check form-check-inline">
-		<input class="form-check-input sev_check" type="radio" name="moves" 
-			   data-section="#div-1">
-		<label class="form-check-label" for="inlineCheckbox1">3</label>
-	</div>
-	<div class="form-check form-check-inline">
-		<input class="form-check-input sev_check" type="radio" name="moves" 
-			   data-section="#div-2">
-		<label class="form-check-label" for="inlineCheckbox2">5</label>
-	</div>
-	<div class="form-check form-check-inline">
-		<input class="form-check-input sev_check" type="radio" name="moves"
-			   data-section="#div-3">
-		<label class="form-check-label" for="inlineCheckbox2">7</label>
-	</div>
+<h3>Please make your move</h3>
 
-	<div class="input-group mb-3 showhide" id="div-1">
-		<input type="text" class="form-control" id="select_1" value="Rock"/>
-		<input type="text" class="form-control" id="select_2" value="Paper" />
-		<input type="text" class="form-control" id="select_3" value="Scissors"/>
-	</div>
-	<div class="input-group mb-3 showhide" id="div-2">
-		<input type="text" class="form-control" id="select_1" value="Rock"/>
-		<input type="text" class="form-control" id="select_2" value="Spock"/>
-		<input type="text" class="form-control" id="select_3" value="Paper"/>
-		<input type="text" class="form-control" id="select_4" value="Lizard"/>
-		<input type="text" class="form-control" id="select_5" value="Scissors" />
-	</div>
-	<div class="input-group mb-3 showhide" id="div-3">
-		<input type="text" class="form-control" id="select_1" />
-		<input type="text" class="form-control" id="select_2" />
-		<input type="text" class="form-control" id="select_3" />
-		<input type="text" class="form-control" id="select_4" />
-		<input type="text" class="form-control" id="select_5" />
-		<input type="text" class="form-control" id="select_6" />
-		<input type="text" class="form-control" id="select_7" />
-	</div>
-	<button>Подтвердить</button>
-</div>
 
-<script>	
+<form>
+	<div class="form-check mb-3">
+		<tbody>
+			@for (int i = 0; i < Model.Length; ++i)
+		{
+			<div class="form-check form-check-inline">
+				<input class="form-check-input form-control-lg " type="checkbox" name="btSelectItem" data-index="@i" data-id="@ViewBag.IdGame">
+				<label class="form-check-label form-control-lg" for="inlineCheckbox1">@Model[i]</label>
+			</div>
+		}
+		</tbody>
+	</div>
+	<div class="row mb-3 ">
+		<button class="btn btn-primary">Confirm</button>
+	</div>	
+</form>
 
-	$(function () {		
-		$('input[type="radio"]').on('change', function () {			 
-			var $target = $('input[type="radio"]:checked');			
-			$(".showhide").hide();			
-			$($target.attr('data-section')).show();			
-		}).trigger('change');
+
+<script>
+	$('.btn').click(function () {		
+		$("input[type='checkbox']:checked").each(function () {
+			console.log("tyt");
+			var list = new Array();
+			var step = "data-index";
+			var idGame = "data-id";
+			var checkbox = $('input[name="btSelectItem"]:checked');
+			var numStep = checkbox.attr(step);
+			var id = checkbox.attr(idGame);
+			list.push(numStep)
+			list.push(id);
+			
+			$.post({
+				url: '/Home/Play',
+				contentType: 'application/json',
+				data: JSON.stringify(list),
+			}).done(function (url) {
+				window.location.href = url;
+			});
+		});
 	});
+
+
 
 
 </script>

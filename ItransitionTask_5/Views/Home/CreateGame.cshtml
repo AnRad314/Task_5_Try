@@ -1,0 +1,134 @@
+﻿@{
+	ViewData["Title"] = "Greate game";
+}
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="container">
+	<p>Select the number of moves </p>
+	<div class="form-check form-check-inline">
+		<input class="form-check-input"  type="radio" name="moves" id="inlineCheckbox1"
+			   data-section="#div-1">
+		<label class="form-check-label" for="inlineCheckbox1">3</label>
+	</div>
+	<div class="form-check form-check-inline">
+		<input class="form-check-input" type="radio" name="moves" id="inlineCheckbox2"
+			   data-section="#div-2">
+		<label class="form-check-label" for="inlineCheckbox2">5</label>
+	</div>
+	<div class="form-check form-check-inline">
+		<input class="form-check-input " type="radio" name="moves" id="inlineCheckbox3"
+			   data-section="#div-3">
+		<label class="form-check-label" for="inlineCheckbox3">7</label>
+	</div>
+	<div class="row">
+		<p>Entered your moves</p>
+	</div>
+	<button class="btn btn-primary mb-3">Confirm</button>
+
+	<div class="input-group mb-3 showhide" id="div-1">
+		<div class="input-group">			
+			<input type="text" class="move1 form-control" value="Rock" />
+		</div>
+
+		<div class="input-group">			
+			<input type="text" class="move1 form-control" value="Paper" />
+		</div>
+		<div class="input-group">			
+			<input type="text" class="move1 form-control" value="Scissors"/>
+		</div>
+
+		
+	</div>
+	<div class="input-group mb-3 showhide" id="div-2">
+		<div class="input-group">
+			<input type="text" class="move2 form-control" value="Rock" />
+		</div>
+		<div class="input-group">
+			<input type="text" class="move2 form-control" value="Spock" />
+		</div>
+		<div class="input-group">
+			<input type="text" class="move2 form-control" value="Paper" />
+		</div>
+		<div class="input-group">
+			<input type="text" class="move2 form-control" value="Lizard" />
+		</div>
+		<div class="input-group">
+			<input type="text" class="move2 form-control" value="Scissors" />
+		</div>
+	</div>
+	<div class="input-group mb-3 showhide" id="div-3">
+		<div class="input-group">
+			<input type="text" class="move3 form-control" />
+		</div>
+		<div class="input-group">
+			<input type="text" class="move3 form-control" />
+		</div>
+		<div class="input-group">
+			<input type="text" class="move3 form-control" />
+		</div>
+		<div class="input-group">
+			<input type="text" class="move3 form-control" />
+		</div>
+		<div class="input-group">
+			<input type="text" class="move3 form-control" />
+		</div>
+		<div class="input-group">
+			<input type="text" class="move3 form-control" />
+		</div>
+		<div class="input-group">
+			<input type="text" class="move3 form-control" />
+		</div>
+	</div>
+</div>
+
+<script>
+	$(function () {
+		$('input[type="radio"]').on('change', function () {
+			var $target = $('input[type="radio"]:checked');		
+			$(".showhide").hide();
+			$($target.attr('data-section')).show();
+		}).trigger('change');
+	});
+
+	$('.btn').click(function () {
+		var movesList = new Array();
+		var step = 'data-step';
+		$("input[type='radio']:checked").each(function () {
+			var idVal = $(this).attr("id");
+			var radioCheck = $("label[for='" + idVal + "']").text();
+			console.log(radioCheck);
+			var i = $('input[name="selectMove"]:checked');
+			var d = i.attr(step);
+			console.log(d);
+			
+			if (radioCheck == 3) {
+				$(".move1").each(function () {
+					movesList.push($(this).val());
+				});
+			} else {
+				if (radioCheck == 5) {
+					$(".move2").each(function () {
+						movesList.push($(this).val());
+					});
+				}
+				else {
+					$(".move3").each(function () {
+						movesList.push($(this).val());
+					});
+				}
+			}
+		
+
+			$.post({
+				url: '/Home/CreateGame',
+				contentType: 'application/json',
+				data: JSON.stringify(movesList),
+			}).done(function (url) {
+				window.location.href = url;
+			});
+		});
+	});
+</script>

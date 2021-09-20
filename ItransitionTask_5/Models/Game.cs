@@ -9,6 +9,8 @@ namespace ItransitionTask_5.Models
 {
 	public class Game
 	{
+		[Key]
+		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public int Id { get; set; }
 
 		[ForeignKey("UserGame")]
@@ -18,9 +20,9 @@ namespace ItransitionTask_5.Models
 		[ForeignKey("UserGame")]
 		public string IdPlayer2 { get; set; }
 		public string Moves { get; set; }
-		public int CountMoves { get; set; }
-		public int StepUser1 { get; set; }
-		public int StepUser2 { get; set; }
+		public int? CountMoves { get; set; }
+		public int? StepUser1 { get; set; }
+		public int? StepUser2 { get; set; }
 		
 	}
 }
